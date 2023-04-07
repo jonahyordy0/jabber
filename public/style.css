@@ -1,0 +1,168 @@
+/* public/style.css */
+
+/* Pallete https://colorhunt.co/palette/718ca159748c354d62d7f2f7 */
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+*, html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+aside {
+    float: left;
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+main {
+    display: block;
+    margin-left: 150px;
+}
+
+.main-header {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.top-nav {
+    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.top-nav-child {
+    margin: 10px;
+}
+
+.search-bar {
+    height: 26px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: lightgray;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+}
+
+/* CSS */
+.new-project-button {
+    background-color: #48abe0;
+    border: none;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    border-radius: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-project-button .button-icon {
+    font-size: 20px;
+    color: white;
+}
+
+
+.main-content {
+    display: block;
+    padding: 1rem;
+}
+
+.ps-nav-menu {
+    background: #393E46;
+    height: 100%;
+}
+
+.primary-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.primary-menu-item {
+    padding: 2px 15px;
+}
+
+.primary-menu-link {
+    border-radius: 6px;
+    display: block;
+    padding: 4px;
+    font-size: 1.1em;
+    color: azure;
+    text-decoration: none;
+}
+
+.primary-menu .selected {
+    background-color: rgba(255,255,255, 0.1);
+}
+
+.primary-menu-link:visited {
+    text-decoration: none;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.widget-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    padding: 1rem;
+
+}
+.tasks-widget {
+    border: 1px lightgrey solid;
+    border-radius: 13px;
+    padding: 1rem;
+}
+
+.tasks-widget h4 {
+    padding: 1rem;
+}
+
+.tasks-widget .tasks-list {
+    list-style: none;
+    font-size: .85rem;
+}
+
+.tasks-widget .tasks-list .task {
+    margin: .5rem;
+}
+
+.projects-widget {
+    border: 1px lightgrey solid;
+    border-radius: 13px;
+    padding: 1rem;
+}
+
+.projects-widget h4 {
+    padding: 1rem;
+}
