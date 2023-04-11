@@ -166,3 +166,19 @@ main {
 .projects-widget h4 {
     padding: 1rem;
 }
+
+.register-form {
+    display:flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 1rem;
+}
+
+.register-form .form-item, .register-form .form-error {
+    margin: 0.5rem;
+}
+
+.register-form .form-error {
+    color: red;
+    font-size: 0.9rem;
+}
