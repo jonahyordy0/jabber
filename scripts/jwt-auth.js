@@ -1,10 +1,9 @@
 import * as jwt from "jsonwebtoken";
-const JWT_SECRET = process.env.JWT_SECRET || 'development';
 
-export function verifyUserSession (req, res, next) {
+export function verifyUserSession(req, res, next) {
   const token = req.cookies.token;
   try {
-    const user = jwt.verify(token, JWT_SECRET);
+    const user = jwt.default.verify(token, process.env.JWT_SECRET);
     req.user = user;
     next();
   } catch (err) {

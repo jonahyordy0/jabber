@@ -9,22 +9,14 @@ html
     title #{title} | PS
     link(rel="stylesheet" href="/style.css")
   body
-    - var values = []
-    form.register-form(action='/register', method='post')
-      input.form-item(name="firstname", placeholder='first name')
-      if errors && errors['name.first']
-        span.form-error #{errors['name.first'].message}
-      input.form-item(name="lastname", placeholder="last name")
-      if errors && errors['name.last']
-        span.form-error #{errors['name.last'].message}
-      input.form-item(name="email", placeholder='email')
-      if errors && errors['email']
-        span.form-error #{errors['email'].message}
-      input.form-item(name="username", placeholder='username')
-      if errors && errors['username']
-        span.form-error #{errors['username'].message}
-      input.form-item(name="password", type="password", placeholder="password")
-      if errors && errors['password']
-        span.form-error #{errors['password'].message}
-      button.form-item(type="submit") Login
+    div.form-area
+      h2.signup-header Sign Up
+      form.register-form(action='/register', method='post')
+        input.form-item(name="email", placeholder='email', value=forminfo.email)
+        if errors && errors['email']
+          span.form-error #{errors['email'].message}
+        input.form-item(name="password", type="password", placeholder="password")
+        if errors && errors['password']
+          span.form-error #{errors['password'].message}
+        button.form-item(type="submit") Sign Up
       

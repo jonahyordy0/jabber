@@ -1,28 +1,17 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
-import uniqueValidator from 'mongoose-unique-validator';
+
+function validateEmail(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
 
 const userSchema = new Schema({
-    id: Number,
-    name: {
-        first: {
-            type: String,
-            required: [true, "First name cannot be blank"]
-        },
-        last: {
-            type: String,
-            required: [true, "Last name can't be blank"]
-        }
-    },
-    username: {
-        type: String, 
-        lowercase: true, 
-        required: [true, "Username can't be blank"],
-        index: true
-    },
     password: {
         type: String,
-        required: [true, "Password can't be blank"]
+        required: [true, "Password can't be blank"],
+        minLength: [8, 'Password must include at least 8 characters'],
+        maxLength: [128, 'Password is too long']
     },
     email: {
         type: String, 
@@ -30,25 +19,31 @@ const userSchema = new Schema({
         required: [true, "Email can't be blank"],
         index: true
     },
-    createdAt: Date,
+    createdAt: Date
 
 });
-userSchema.path("username").validate((value, done) => {
-    this.model('User').count({ username: value }, function(err, count) {
-        if (err) {
-            return done(err);
-        } 
-        done(!count);
-    });
-}, 'Username already exists');
-userSchema.path("email").validate((value, done) => {
-    this.model('User').count({ email: value }, function(err, count) {
-        if (err) {
-            return done(err);
-        } 
-        done(!count);
-    });
+
+userSchema.path('password').validate(async function (value) {
+    const re = /[a-z]/g;
+    return re.test(value)
+}, 'Password must contain at least one lowercase letter');
+
+userSchema.path('password').validate(async function (value) {
+    const re = /[A-Z]/g;
+    return re.test(value)
+}, 'Password must contain at least one uppercase letter');
+
+userSchema.path('password').validate(async function (value) {
+    const re = /[0-9]/g;
+    return re.test(value)
+}, 'Password must contain at least one number');
+
+userSchema.path('email').validate(async function (value) {
+    const count = await this.model('User').count({ email: value });
+    return !count
 }, 'Email already exists');
+
+userSchema.path('email').validate(validateEmail, 'Email is not valid');
 
 const User = model("User", userSchema);
 

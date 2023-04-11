@@ -167,6 +167,26 @@ main {
     padding: 1rem;
 }
 
+.form-area {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.login-form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    padding: 1rem;
+}
+
+.login-form .form-error, .register-form .form-error {
+    color: red;
+}
+
 .register-form {
     display:flex;
     flex-direction: column;
@@ -174,11 +194,16 @@ main {
     padding: 1rem;
 }
 
-.register-form .form-item, .register-form .form-error {
-    margin: 0.5rem;
+.register-form .form-item:not(button), .login-form .form-item:not(button) {
+    margin: 0.8rem;
+    width: 60%;
 }
 
-.register-form .form-error {
-    color: red;
-    font-size: 0.9rem;
+.login-form button {
+    width: 40%;
+}
+
+form span {
+    font-size: 0.7rem;
+    text-align: center;
 }

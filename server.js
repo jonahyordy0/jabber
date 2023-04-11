@@ -4,12 +4,12 @@ dotenv.config()
 import express from 'express'
 import path from "path";
 import cookieParser from "cookie-parser";
-import * as jwt from "jsonwebtoken";
 
-import { verifyUserSession } from "./scripts/auth.js";
+import { verifyUserSession } from "./scripts/jwt-auth.js";
 import { createUser } from "./scripts/register.js";
 
 import { fileURLToPath } from 'url';
+import { handleLogin } from './scripts/login.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -29,12 +29,20 @@ const MONTHS = ["January", "Febuary", "March", "April", "May", "June", "July", "
 const JWT_SECRET = process.env.JWT_SECRET || 'development';
 
 app.get("/register", (req, res) => {
-    res.render("register", { title: "Register"});
+    res.render("register", { title: "Register", forminfo: {
+        name: {
+            first: '',
+            last: ''
+        },
+        email: '',
+        username: '',
+        password: ''
+    }});
 });
 
 app.post("/register", async (req, res) => {
     const { firstname, lastname, email, username, password } = req.body;
-    createUser({
+    return createUser({
         name: {
             first: firstname,
             last: lastname,
@@ -43,33 +51,14 @@ app.post("/register", async (req, res) => {
         username: username,
         password: password
 
-    }, res, req);    
+    }, res, req);
 });
 
 app.get("/login", (req, res) => {
     res.render("login", { title: "Login" });
 });
 
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    const user = await validateUser(username);
-
-    if (password != user.password) {
-        return res.status(403).json({
-            error: "invalid login",
-        });
-    }
-
-    delete user.password;
-    
-    const token = jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
-
-    res.cookie("token", token);
-
-    return res.redirect("/dashboard/home")
-
-});
+app.post('/login', handleLogin);
 
 app.get("/dashboard/home", verifyUserSession, (req, res) => {
     let date = new Date();

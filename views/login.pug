@@ -9,8 +9,14 @@ html
     title #{title} | PS
     link(rel="stylesheet" href="/style.css")
   body
-    form(action='/login', method='post')
-      input(name="username", placeholder='username')
-      input(name="password", type="password", placeholder="password")
-      button(type="submit") Login
+    div.form-area
+      h2.signup-header Login
+      form.login-form(action='/login', method='post')
+        input.form-item(name="email", placeholder='email')
+        input.form-item(name="password", type="password", placeholder="password")
+        if errors && errors['password']
+            span.form-error #{errors['password'].message}
+        button.form-item(type="submit") Login
+        span.options.form-item Don't have an account? 
+          a(href='/register') Click Here
       

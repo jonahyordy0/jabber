@@ -1,6 +1,9 @@
+import mongoose from "mongoose";
+import User from "../models/User.js";
 
-exports.validateUser = async (username) => {
-    user = {id: 234, username: "jonah", password: "taco"}
+export async function validateUser(value) {
+    await mongoose.connect(process.env.DB_URI);
 
-    return user
+    const query = await User.findOne({ email: value })
+    return { email: value, password: query.password }
 }
