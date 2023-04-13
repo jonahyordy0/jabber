@@ -3,13 +3,29 @@ import * as jwt from "jsonwebtoken";
 
 
 export async function handleLogin(req, res) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await validateUser(username);
+    const user = await validateUser(email);
+
+    if (!user) {
+        res.status(401);
+        return res.render("login", { 
+            title: "Login", 
+            error: "Incorrect username or password", 
+            forminfo: {
+                email: email
+            }
+        });
+    }
 
     if (password != user.password) {
-        return res.status(403).json({
-            error: "invalid login",
+        res.status(401);
+        return res.render("login", { 
+            title: "Login", 
+            error: "Incorrect username or password", 
+            forminfo: {
+                email: email
+            }
         });
     }
 

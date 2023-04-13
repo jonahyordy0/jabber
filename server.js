@@ -6,10 +6,11 @@ import path from "path";
 import cookieParser from "cookie-parser";
 
 import { verifyUserSession } from "./scripts/jwt-auth.js";
-import { createUser } from "./scripts/register.js";
+import { handleRegistration } from "./scripts/register.js";
+import { handleLogin } from './scripts/login.js';
 
 import { fileURLToPath } from 'url';
-import { handleLogin } from './scripts/login.js';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTHS = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const JWT_SECRET = process.env.JWT_SECRET || 'development';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.get("/register", (req, res) => {
     res.render("register", { title: "Register", forminfo: {
@@ -40,22 +41,12 @@ app.get("/register", (req, res) => {
     }});
 });
 
-app.post("/register", async (req, res) => {
-    const { firstname, lastname, email, username, password } = req.body;
-    return createUser({
-        name: {
-            first: firstname,
-            last: lastname,
-        },
-        email: email,
-        username: username,
-        password: password
-
-    }, res, req);
-});
+app.post("/register", handleRegistration);
 
 app.get("/login", (req, res) => {
-    res.render("login", { title: "Login" });
+    res.render("login", { title: "Login", forminfo: {
+        email: ''
+    }});
 });
 
 app.post('/login', handleLogin);

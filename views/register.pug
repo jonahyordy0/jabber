@@ -9,14 +9,28 @@ html
     title #{title} | PS
     link(rel="stylesheet" href="/style.css")
   body
-    div.form-area
-      h2.signup-header Sign Up
-      form.register-form(action='/register', method='post')
-        input.form-item(name="email", placeholder='email', value=forminfo.email)
-        if errors && errors['email']
-          span.form-error #{errors['email'].message}
-        input.form-item(name="password", type="password", placeholder="password")
-        if errors && errors['password']
-          span.form-error #{errors['password'].message}
-        button.form-item(type="submit") Sign Up
-      
+    form.register(action='/register', method='post')
+      h2.register-header Sign Up
+      input.form-item(name="firstname", placeholder='First Name', value=forminfo.name.first, required, autofocus)
+      if errors && errors['name'] && errors['name'].first
+        span.form-error #{errors['name'].first.message}
+
+      input.form-item(name="lastname", placeholder='Last Name', value=forminfo.name.last, required)
+      if errors && errors['name'] && errors['name'].last
+        span.form-error #{errors['name'].last.message}
+
+      input.form-item(name="email", placeholder='Email', value=forminfo.email, required)
+      if errors && errors['email']
+        span.form-error #{errors['email'].message}
+
+      input.form-item(name="password", type="password", placeholder="Password", required)
+      if errors && errors['password']
+        span.form-error #{errors['password'].message}
+
+      input.form-item(name="cpassword", type="password", placeholder="Confirm Password", required)
+      if errors && errors['cpassword']
+        span.form-error #{errors['cpassword'].message}
+
+      button.form-item(type="submit") Sign Up
+      span.options.form-item Already have an account? 
+        a(href='/login') Login

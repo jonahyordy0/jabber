@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import User from "../models/User.js";
+import { createUser, validateUser } from "./database.js";
+import * as jwt from "jsonwebtoken";
 
 function hash(username) {
     let hash = 0;
@@ -18,31 +18,26 @@ function makeId(username, firstname, lastname) {
     return (epoch + uhash + fhash + lhash) * 100
 }
 
-export async function createUser(userData, res, req) {
+export async function handleRegistration (req, res) {
+    const userData = req.body;
     try {
-        await mongoose.connect(process.env.DB_URI);
+        await createUser(userData);
 
-        const thisDate = new Date();
+        const user = await validateUser(userData.email);
 
-        const user = new User({
-            password: userData.password,
-            email: userData.email,
-            createdAt: thisDate
-        });
-        
-        await user.save();
+        const token = jwt.default.sign(userData, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        return res.redirect("/dashboard/home", 200)
+        res.cookie("token", token);
+
+        return res.redirect("/dashboard/home")
 
     } catch (e) {
+        console.log(e);
         res.status(403);
         return res.render("register", { 
             title: "Register", 
             errors: e.errors, 
             forminfo: {
-                name: userData.name,
-                username: userData.username,
-                password: userData.password,
                 email: userData.email
             }
         });
