@@ -1,4 +1,23 @@
 block variables
+
+mixin nav(selected)
+  if selected === "home"
+    li.primary-menu-item.selected
+      a(href='/dashboard/home').primary-menu-link Home
+  else
+    li.primary-menu-item
+      a(href='/dashboard/home').primary-menu-link Home
+  
+  if selected === "tasks"
+    li.primary-menu-item.selected
+      a(href='/dashboard/tasks').primary-menu-link My Tasks
+  else
+    li.primary-menu-item
+      a(href='/dashboard/tasks').primary-menu-link My Tasks
+  
+  li.primary-menu-item
+    a(href='/dashboard/dashboard').primary-menu-link Inbox
+
 doctype html
 html
   head

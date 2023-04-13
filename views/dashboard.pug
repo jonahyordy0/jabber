@@ -1,17 +1,12 @@
 extends layout
 
 block nav
-  li.primary-menu-item.selected
-    a(href='/dashboard/home').primary-menu-link Home
-  li.primary-menu-item
-    a(href='/dashboard/tasks').primary-menu-link My Tasks
-  li.primary-menu-item
-    a(href='/dashboard/dashboard').primary-menu-link Inbox
+  +nav("home")
 
 block main-content
   div.welcome
     h4 #{weekday}, #{month} #{day}
-    h1 Welcome, #{user.username}
+    h1 Welcome, #{user.firstname}
 
   div.widget-container
     div.dashboard-widget
