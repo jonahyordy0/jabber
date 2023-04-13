@@ -176,14 +176,17 @@ main {
 .form-body {
     display:flex;
     flex-direction: column;
-    padding: 40px;
-    margin: 20px;
+    padding: 20px;
     border: 1px lightgrey solid;
     border-radius: 10px;
 }
 
 .form-item {
     margin: 10px;
+}
+
+.form-item.options {
+    font-size: 0.9rem;
 }
 
 .form-input {
@@ -207,8 +210,7 @@ button.form-item {
 }
 
 .form-error {
-    margin-top: 5px;
-    padding: 10px;
+    margin: 15px;
     color: red;
 }
 

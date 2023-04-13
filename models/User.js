@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
-function validateEmail(email) {
+async function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
 
 const userSchema = new Schema({
+    name: {
+        first: {
+            type: String,
+            required: [true, "First name can't be blank"],
+        },
+        last: {
+            type: String,
+            required: [true, "Last name can't be blank"],
+        },
+
+    },
     password: {
         type: String,
         required: [true, "Password can't be blank"],
@@ -23,6 +34,13 @@ const userSchema = new Schema({
 
 });
 
+userSchema.path('email').validate(async function (value) {
+    const count = await this.model('User').count({ email: value });
+    return !count
+}, 'Email already exists');
+
+userSchema.path('email').validate(validateEmail, 'Email is not valid');
+
 userSchema.path('password').validate(async function (value) {
     const re = /[a-z]/g;
     return re.test(value)
@@ -38,12 +56,7 @@ userSchema.path('password').validate(async function (value) {
     return re.test(value)
 }, 'Password must contain at least one number');
 
-userSchema.path('email').validate(async function (value) {
-    const count = await this.model('User').count({ email: value });
-    return !count
-}, 'Email already exists');
 
-userSchema.path('email').validate(validateEmail, 'Email is not valid');
 
 const User = model("User", userSchema);
 

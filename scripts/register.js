@@ -21,6 +21,16 @@ function makeId(username, firstname, lastname) {
 export async function handleRegistration (req, res) {
     const userData = req.body;
     try {
+
+        if (userData.password != userData.cpassword) {
+            console.log("yeah")
+            throw {
+                errors: {
+                    password: "Passwords don't match"
+                }
+            }
+            
+        }
         await createUser(userData);
 
         const user = await validateUser(userData.email);
@@ -32,12 +42,19 @@ export async function handleRegistration (req, res) {
         return res.redirect("/dashboard/home")
 
     } catch (e) {
-        console.log(e);
+        let errors = e.errors;
+        let formError = errors[Object.keys(errors)[0]];
+        console.log(formError);
+        
         res.status(403);
         return res.render("register", { 
             title: "Register", 
-            errors: e.errors, 
+            error: formError, 
             forminfo: {
+                name: {
+                    first: userData.firstname,
+                    last: userData.lastname
+                },
                 email: userData.email
             }
         });
