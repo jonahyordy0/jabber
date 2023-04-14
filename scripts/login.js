@@ -30,7 +30,7 @@ export async function handleLogin(req, res) {
     }
 
     delete user.password;
-    const token = jwt.default.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.default.sign(user.toJSON(), process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.cookie("token", token);
 

@@ -209,6 +209,10 @@ button.form-item {
     color: white;
 }
 
+button.form-item:hover {
+    cursor: pointer;
+}
+
 .form-error {
     margin: 15px;
     color: red;

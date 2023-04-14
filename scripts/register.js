@@ -31,11 +31,10 @@ export async function handleRegistration (req, res) {
             }
             
         }
-        await createUser(userData);
-
-        const user = await validateUser(userData.email);
-
-        const token = jwt.default.sign(userData, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const user = await createUser(userData);
+    
+        delete user.password;
+        const token = jwt.default.sign(user.toJSON(), process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.cookie("token", token);
 

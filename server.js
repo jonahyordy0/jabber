@@ -30,7 +30,7 @@ const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frida
 const MONTHS = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const JWT_SECRET = process.env.JWT_SECRET;
 
-app.get("/register", (req, res) => {
+app.get("/register", verifyUserSession, (req, res) => {
     res.render("register", { title: "Register", forminfo: {
         name: {
             first: '',
@@ -44,7 +44,7 @@ app.get("/register", (req, res) => {
 
 app.post("/register", handleRegistration);
 
-app.get("/login", (req, res) => {
+app.get("/login", verifyUserSession, (req, res) => {
     res.render("login", { title: "Login", forminfo: {
         email: ''
     }});
@@ -54,7 +54,6 @@ app.post('/login', handleLogin);
 
 app.get("/dashboard/home", verifyUserSession, (req, res) => {
     let date = new Date();
-
     res.render("dashboard", {
         title: "Home", 
         weekday: WEEKDAYS[date.getDay()], 

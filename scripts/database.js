@@ -10,7 +10,7 @@ export async function validateUser(value) {
         return null
     }
     
-    return { email: value, password: query.password }
+    return query
 }
 
 export async function createUser(userData) {
