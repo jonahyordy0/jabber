@@ -47,11 +47,8 @@ main {
     margin: 10px;
 }
 
-.search-bar {
-    height: 26px;
-    border-radius: 20px;
-    border-style: solid;
-    border-color: lightgray;
+.search-bar.top-nav-child {
+    height: 12px;
 }
 
 .profile-pic {
@@ -65,9 +62,8 @@ main {
     align-items: center;
 }
 
-/* CSS */
 .new-project-button {
-    background-color: #48abe0;
+    background-color: #577D86;
     border: none;
     height: 30px;
     width: 30px;
@@ -77,6 +73,11 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
+}
+
+.new-project-button:hover {
+    background-color: #659aa5;
 }
 
 .new-project-button .button-icon {
@@ -157,6 +158,10 @@ main {
     margin: .5rem;
 }
 
+.form-header {
+    margin: 10px
+}
+
 .auth-form {
     position:absolute;
     margin: auto;
@@ -176,13 +181,13 @@ main {
 .form-body {
     display:flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 18px;
     border: 1px lightgrey solid;
     border-radius: 10px;
 }
 
 .form-item {
-    margin: 10px;
+    margin: 10px 0;
 }
 
 .form-item.options {
@@ -194,15 +199,27 @@ main {
     border-radius: 20px;
     padding: 7px 10px;
     display: flex;
-
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-input:focus {
     outline-color: darkgrey;
 }
 
+.search-bar {
+    border: 2px solid lightgrey;
+    border-radius: 20px;
+    padding: 7px 10px;
+    display: flex;
+}
+
+.search-bar:focus {
+    outline-color: darkgrey;
+}
+
 button.form-item {
-    background-color: #569DAA;
+    background-color: #577D86;
     border: none;
     padding: 7px 10px;
     border-radius: 20px;
@@ -211,6 +228,7 @@ button.form-item {
 
 button.form-item:hover {
     cursor: pointer;
+    background-color: #659aa5;
 }
 
 .form-error {
@@ -218,3 +236,69 @@ button.form-item:hover {
     color: red;
 }
 
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.project-list-item {
+    display: flex;
+    flex-direction: column;
+    margin: .4rem;
+}
+
+.project-item-content {
+    background-color: gainsboro;
+    height: 200px;
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+}
+
+.project-item-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: lightgrey;
+    align-items: center;
+    border-top: 2px solid #569DAA;
+    border-radius: 3px 3px 0 0;
+}
+.project-item-content.project-closed {
+    display: none;
+}
+
+
+.projects-header {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: flex-end;
+}
+
+.toggle-project {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+}
+
+.toggle-project::after {
+    position: absolute;
+    top: 6px;
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-top: 0.125rem solid black;
+    border-right: 0.125rem solid black;
+    transform: rotate(135deg);
+}
+
+.rot {
+    transform: rotate(180deg);
+}

@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { verifyUserSession } from "./scripts/jwt-auth.js";
 import { handleRegistration } from "./scripts/register.js";
 import { handleLogin } from './scripts/login.js';
+import { getUserProjects } from './scripts/database.js'
 
 import { fileURLToPath } from 'url';
 
@@ -63,8 +64,16 @@ app.get("/dashboard/home", verifyUserSession, (req, res) => {
     });
 });
 
-app.get("/dashboard/tasks", (req, res) => {
-    res.render("tasks", { title: "Tasks" });
+app.get("/dashboard/projects", verifyUserSession, async (req, res) => {
+    const userProjects = [1,1,1,1] || await getUserProjects(req.user._id)
+    console.log(userProjects);
+    res.render("projects", { title: "Projects", projects: userProjects});
+});
+
+app.get("/new-project", verifyUserSession, async (req, res) => {
+    res.render("new-project", { title: "New Project", forminfo: {
+        title: ''
+    } });
 });
 
 app.listen(port, () => {

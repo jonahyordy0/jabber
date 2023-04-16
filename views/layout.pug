@@ -8,12 +8,12 @@ mixin nav(selected)
     li.primary-menu-item
       a(href='/dashboard/home').primary-menu-link Home
   
-  if selected === "tasks"
+  if selected === "projects"
     li.primary-menu-item.selected
-      a(href='/dashboard/tasks').primary-menu-link My Tasks
+      a(href='/dashboard/projects').primary-menu-link My Projects
   else
     li.primary-menu-item
-      a(href='/dashboard/tasks').primary-menu-link My Tasks
+      a(href='/dashboard/projects').primary-menu-link My Projects
   
   li.primary-menu-item
     a(href='/dashboard/dashboard').primary-menu-link Inbox
@@ -27,6 +27,7 @@ html
     meta(name="theme-color", content="#000000")
     title #{title} | PS
     link(rel="stylesheet" href="/style.css")
+    script(src='/app.js')
   body
     aside
       nav.ps-nav-menu
@@ -36,10 +37,10 @@ html
 
     main
       div.main-header
-        h3 #{title}
+        h2 #{title}
         div.top-nav
-          input.form-input.top-nav-child(type='text', placeholder='Search...')
-          button.new-project-button.top-nav-child(type="button")
+          input.search-bar.top-nav-child(type='text', placeholder='Search...')
+          a.new-project-button.top-nav-child(href='/new-project')
             span.button-icon +
           a.profile-link.top-nav-child(href='/profile')
             img.profile-pic(src="/profile-picture.png")

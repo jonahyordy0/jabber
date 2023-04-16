@@ -35,6 +35,7 @@ const userSchema = new Schema({
 });
 
 userSchema.path('email').validate(async function (value) {
+    console.log(this.model('User'))
     const count = await this.model('User').count({ email: value });
     return !count
 }, 'Email already exists');

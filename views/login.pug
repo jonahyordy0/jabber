@@ -12,7 +12,7 @@ html
     link(rel="stylesheet" href="/style.css")
   body
     div.auth-form#login
-      h2.signup-header Login
+      h2.form-header Login
       if error
         span.form-error #{error}
       form.form-body(action='/login', method='post')

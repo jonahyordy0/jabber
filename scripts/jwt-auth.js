@@ -15,7 +15,7 @@ export function verifyUserSession(req, res, next) {
   } else {
     try {
       jwt.default.verify(token, process.env.JWT_SECRET);
-      res.redirect("/dashboard/home")
+      return res.redirect("/dashboard/home");
     } catch (err) {
       next();
     }
