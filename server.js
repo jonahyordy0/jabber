@@ -7,8 +7,9 @@ import cookieParser from "cookie-parser";
 
 import { verifyUserSession } from "./scripts/jwt-auth.js";
 import { handleRegistration } from "./scripts/register.js";
+import { handleNewJab } from "./scripts/jab.js";
 import { handleLogin } from './scripts/login.js';
-import { getUserProjects } from './scripts/database.js'
+import { getJabs, getUser } from './scripts/database.js';
 
 import { fileURLToPath } from 'url';
 
@@ -53,28 +54,34 @@ app.get("/login", verifyUserSession, (req, res) => {
 
 app.post('/login', handleLogin);
 
-app.get("/dashboard/home", verifyUserSession, (req, res) => {
+app.get("/dashboard/home", verifyUserSession, async (req, res) => {
     let date = new Date();
+
+
+    const jabs = await getJabs(req.user);
+
     res.render("dashboard", {
         title: "Home", 
         weekday: WEEKDAYS[date.getDay()], 
         day: date.getDate(), 
         month: MONTHS[date.getMonth()],
-        user: req.user
+        user: req.user,
+        jabs: jabs
     });
 });
 
-app.get("/dashboard/projects", verifyUserSession, async (req, res) => {
-    const userProjects = [1,1,1,1] || await getUserProjects(req.user._id)
-    console.log(userProjects);
-    res.render("projects", { title: "Projects", projects: userProjects});
+app.post("/jab", verifyUserSession, handleNewJab);
+
+app.get('/profile/:id', verifyUserSession, async (req, res) => {
+
+    const profileUser = await getUser(req.params.id);
+    
+    res.render('profile', {
+        user: req.user,
+        profileUser: profileUser
+    });
 });
 
-app.get("/new-project", verifyUserSession, async (req, res) => {
-    res.render("new-project", { title: "New Project", forminfo: {
-        title: ''
-    } });
-});
 
 app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);

@@ -1,9 +1,8 @@
-function testFunc(e) {
-    if (e.classList.contains("rot")) {
-        e.classList.remove("rot")
-        e.parentElement.parentElement.getElementsByClassName('project-item-content')[0].classList.remove("project-closed")
-    } else {
-        e.classList.add("rot")
-        e.parentElement.parentElement.getElementsByClassName('project-item-content')[0].classList.add("project-closed")
-    }
+function profileDropdown(e) {
+    console.log(e)
+    e.parentElement.getElementsByClassName('dropdown')[0].classList.toggle("show");
+}
+
+function adjustHeight(el){
+    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
 }

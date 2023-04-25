@@ -18,7 +18,7 @@ html
       form.form-body(action='/login', method='post')
         input.form-input.form-item(name="email", placeholder='email', value=forminfo.email, required, autofocus)
         input.form-input.form-item(name="password", type="password", placeholder="password", required)
-        button.form-item(type="submit") Login
+        button.form-item.form-button(type="submit") Login
       span.options.form-item Don't have an account? 
         a(href='/register') Click Here
       

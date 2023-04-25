@@ -1,19 +1,20 @@
 extends layout
 
-block nav
-  +nav("home")
-
 block main-content
-  div.welcome
-    h4 #{weekday}, #{month} #{day}
-    h1 Welcome, #{user.name.first}
+  .main-content
+    div.welcome
+      h2 Welcome, #{user.name.first}
+      h5 #{weekday}, #{month} #{day}
+    form.new-jab(action="/jab", method="post")
+      .top 
+        img.profile-pic(src="/profile-picture.png")
+        textarea.jab-text(name="jabcontent", placeholder="Whats happening?", maxlength="40")
+      .bottom 
+        button.send-jab(type="submit") Jab
+    .jabs
+      each jab in jabs 
+        .jab
+          span #{jab.author.name}
 
-  div.widget-container
-    div.dashboard-widget
-      h4.widget-header My Tasks
-      ul.tasks-list
-        li.task Update Logo
-        li.task Write logging system 
 
-    div.dashboard-widget
-      h4.widget-header My Projects
+    

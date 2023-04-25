@@ -29,21 +29,15 @@ html
     link(rel="stylesheet" href="/style.css")
     script(src='/app.js')
   body
-    aside
-      nav.ps-nav-menu
-        ul.primary-menu
-          img(src='/company-logo.jpg')
-          block nav
-
-    main
-      div.main-header
-        h2 #{title}
-        div.top-nav
-          input.search-bar.top-nav-child(type='text', placeholder='Search...')
-          a.new-project-button.top-nav-child(href='/new-project')
-            span.button-icon +
-          a.profile-link.top-nav-child(href='/profile')
-            img.profile-pic(src="/profile-picture.png")
-
-      div.main-content
-        block main-content
+    .nav
+      h2 Jabber
+      input.search-bar.top-nav-child(type='text', placeholder='Search for people')
+      .profile
+        a.profile-link.top-nav-child(onclick="profileDropdown(this)", href="/profile/"+user._id)
+          img.profile-pic(src="/profile-picture.png")
+        ul.dropdown
+          li My Profile
+          li Settings 
+          li Test
+    .main
+      block main-content

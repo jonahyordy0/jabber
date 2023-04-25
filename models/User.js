@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
@@ -29,6 +30,12 @@ const userSchema = new Schema({
         lowercase: true, 
         required: [true, "Email can't be blank"],
         index: true
+    },
+    following: {
+        type: [ObjectId],
+    },
+    followers: {
+        type: [ObjectId],
     },
     createdAt: Date
 
